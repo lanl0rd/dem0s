@@ -1,0 +1,33 @@
+# docker service rm ocelot_bakery-api || true && docker stack deploy -c $HOME/tmp/dem0s/ocelot/run/docker/bakery.yaml --resolve-image=never ocelot
+
+version: '3.7'
+
+services:
+
+  bakery-api:
+    image: lanl0rd/js
+    networks:
+      - network_overlay
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - $HOME/tmp/dem0s/ocelot:/root/ocelot
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.realms_glass_earth_earth-api.rule=Host(`api.bakery.work`)
+        - traefik.http.services.realms_glass_earth_earth-api.loadbalancer.server.port=34274
+        - traefik.http.services.realms_glass_earth_earth-api.loadbalancer.sticky.cookie.name=sticky
+        - traefik.http.services.realms_glass_earth_earth-api.loadbalancer.sticky.cookie.secure=true
+        - traefik.http.services.realms_glass_earth_earth-api.loadbalancer.sticky.cookie.httpOnly=true
+    working_dir: /root/ocelot
+    ports:
+      - "34274"
+    # command: node ./dists/apps/bakery-api/main.js --expose_gc --expose-gc --preserve-symlinks --preserve-symlinks-main
+    command: node main.js --expose_gc --expose-gc --preserve-symlinks --preserve-symlinks-main
+
+networks:
+  network_overlay:
+    external: true
