@@ -17,6 +17,7 @@
   },
   "projects": {
     "bakery": { "tags": [] },
-    "bakery-e2e": { "tags": [], "implicitDependencies": ["bakery"] }
+    "bakery-e2e": { "tags": [], "implicitDependencies": ["bakery"] },
+    "bakery-api": { "tags": [] }
   }
 }
