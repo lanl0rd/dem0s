@@ -1,5 +1,5 @@
 # docker network create -d overlay --attachable network_overlay
-# docker service rm ocelot_traefik || true && docker service rm ocelot_nginx || true && docker stack deploy -c $HOME/tmp/dem0s/ocelot/run/docker/router.yaml --resolve-image=never ocelot
+# docker service rm ocelot_traefik || true && docker service rm ocelot_nginx || true && docker stack deploy -c $(pwd)/router.yaml --resolve-image=never ocelot
 
 version: '3.7'
 
@@ -13,10 +13,10 @@ services:
     networks:
       - network_overlay
     volumes:
-      - $HOME/tmp/dem0s/ocelot:/ocelot:ro
-      - $HOME/tmp/dem0s/ocelot/:/root/ocelot:ro
-      - $HOME/tmp/dem0s/ocelot/run/certbot/etc/letsencrypt:/etc/letsencrypt
-      - $HOME/tmp/dem0s/ocelot/run/nginx:/etc/nginx:ro
+      - ./../../:/ocelot:ro
+      - ./../../:/root/ocelot:ro
+      - ./../../run/certbot/etc/letsencrypt:/etc/letsencrypt
+      - ./../../run/nginx:/etc/nginx:ro
     command: sh -c "nginx -g \"daemon off;\" & while true; do echo `date` || true; nginx -s reload || true; sleep 10s; done"
 
   traefik:

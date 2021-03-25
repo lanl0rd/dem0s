@@ -1,32 +1,50 @@
-# docker service rm ocelot_bakery-api || true && docker stack deploy -c $HOME/tmp/dem0s/ocelot/run/docker/bakery.yaml --resolve-image=never ocelot
+# docker service rm ocelot_bakery-api || true && docker service rm ocelot_bakery || true && docker stack deploy -c $(pwd)/bakery.yaml --resolve-image=never ocelot
 
 version: '3.7'
 
 services:
+
+  bakery:
+    image: lanl0rd/js
+    networks:
+      - network_overlay
+    volumes:
+      - ../../:/app
+      - /media/simba/raoyi/earth/realms/glass/dist/works/nx/works/node_modules:/app/node_modules
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    working_dir: /app
+    ports:
+      - "4200:4200"
+    # command: ng serve --host 0.0.0.0 --disableHostCheck
+    command: tail -f /dev/null
 
   bakery-api:
     image: lanl0rd/js
     networks:
       - network_overlay
     volumes:
+      - ../../:/app
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - $HOME/tmp/dem0s/ocelot:/root/ocelot
+      - /media/simba/raoyi/earth/realms/glass/dist/works/nx/works/node_modules:/app/node_modules
     deploy:
       replicas: 1
       placement:
         constraints: [node.role == manager]
       labels:
         - traefik.enable=true
-        - traefik.http.routers.realms_glass_earth_earth-api.rule=Host(`api.bakery.work`)
-        - traefik.http.services.realms_glass_earth_earth-api.loadbalancer.server.port=34274
-        - traefik.http.services.realms_glass_earth_earth-api.loadbalancer.sticky.cookie.name=sticky
-        - traefik.http.services.realms_glass_earth_earth-api.loadbalancer.sticky.cookie.secure=true
-        - traefik.http.services.realms_glass_earth_earth-api.loadbalancer.sticky.cookie.httpOnly=true
-    working_dir: /root/ocelot
+        - traefik.http.routers.ocelot_bakery-api.rule=Host(`api.bakery.work`)
+        - traefik.http.services.ocelot_bakery-api.loadbalancer.server.port=34274
+        - traefik.http.services.ocelot_bakery-api.loadbalancer.sticky.cookie.name=sticky
+        - traefik.http.services.ocelot_bakery-api.loadbalancer.sticky.cookie.secure=true
+        - traefik.http.services.ocelot_bakery-api.loadbalancer.sticky.cookie.httpOnly=true
+    working_dir: /app
     ports:
-      - "34274"
-    # command: node ./dists/apps/bakery-api/main.js --expose_gc --expose-gc --preserve-symlinks --preserve-symlinks-main
-    command: node main.js --expose_gc --expose-gc --preserve-symlinks --preserve-symlinks-main
+      - "3000:3000"
+    # command: nx start bakery-api
+    command: tail -f /dev/null
 
 networks:
   network_overlay:
