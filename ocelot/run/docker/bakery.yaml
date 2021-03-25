@@ -10,7 +10,6 @@ services:
       - network_overlay
     volumes:
       - ../../:/app
-      - /media/simba/raoyi/earth/realms/glass/dist/works/nx/works/node_modules:/app/node_modules
     deploy:
       replicas: 1
       placement:
@@ -18,8 +17,7 @@ services:
     working_dir: /app
     ports:
       - "4200:4200"
-    # command: ng serve --host 0.0.0.0 --disableHostCheck
-    command: tail -f /dev/null
+    command: nx serve bakery --host 0.0.0.0 --disableHostCheck
 
   bakery-api:
     image: lanl0rd/js
@@ -28,7 +26,6 @@ services:
     volumes:
       - ../../:/app
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /media/simba/raoyi/earth/realms/glass/dist/works/nx/works/node_modules:/app/node_modules
     deploy:
       replicas: 1
       placement:
@@ -36,15 +33,14 @@ services:
       labels:
         - traefik.enable=true
         - traefik.http.routers.ocelot_bakery-api.rule=Host(`api.bakery.work`)
-        - traefik.http.services.ocelot_bakery-api.loadbalancer.server.port=34274
+        - traefik.http.services.ocelot_bakery-api.loadbalancer.server.port=3000
         - traefik.http.services.ocelot_bakery-api.loadbalancer.sticky.cookie.name=sticky
         - traefik.http.services.ocelot_bakery-api.loadbalancer.sticky.cookie.secure=true
         - traefik.http.services.ocelot_bakery-api.loadbalancer.sticky.cookie.httpOnly=true
     working_dir: /app
     ports:
       - "3000:3000"
-    # command: nx start bakery-api
-    command: tail -f /dev/null
+    command: nx serve bakery-api
 
 networks:
   network_overlay:

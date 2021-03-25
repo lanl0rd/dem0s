@@ -13,10 +13,10 @@ services:
     networks:
       - network_overlay
     volumes:
-      - ./../../:/ocelot:ro
-      - ./../../:/root/ocelot:ro
-      - ./../../run/certbot/etc/letsencrypt:/etc/letsencrypt
-      - ./../../run/nginx:/etc/nginx:ro
+      - ../../:/ocelot:ro
+      - ../../:/root/ocelot:ro
+      - ../certbot/etc/letsencrypt:/etc/letsencrypt
+      - ../nginx:/etc/nginx:ro
     command: sh -c "nginx -g \"daemon off;\" & while true; do echo `date` || true; nginx -s reload || true; sleep 10s; done"
 
   traefik:
@@ -34,7 +34,7 @@ services:
           condition: on-failure
       placement:
         constraints: [node.role == manager]
-    command: --api.insecure --providers.docker --providers.docker.swarmMode --providers.docker.exposedByDefault=false --api.debug --providers.docker.network=earth_network_overlay
+    command: --api.insecure --providers.docker --providers.docker.swarmMode --providers.docker.exposedByDefault=false --api.debug --providers.docker.network=network_overlay
 
 networks:
   network_overlay:
