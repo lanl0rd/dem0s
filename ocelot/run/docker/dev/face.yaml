@@ -11,7 +11,7 @@ services:
     networks:
       - network_overlay
     ports:
-      - "8008:80"
+      - "80"
       - "5090"
     volumes:
       - ../../../:/root/ocelot
