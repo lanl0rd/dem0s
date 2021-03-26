@@ -7,7 +7,7 @@ services:
   face:
     image: lanl0rd/face
     environment:
-      - HTTP_PASSWORD=ocelot
+      - HTTP_PASSWORD=$HTTP_PASSWORD
     networks:
       - network_overlay
     ports:
