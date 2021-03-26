@@ -1,1 +1,1 @@
-openssl enc -d -aes256 -in secured.tar.gz | tar xz -C test
+openssl enc -d -aes256 -in etc.tar.gz | tar xz -C etc
