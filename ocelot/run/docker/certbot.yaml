@@ -13,7 +13,7 @@ services:
       - "443"
     entrypoint: tail -f /dev/null
     volumes:
-      - ./../certbot/etc/letsencrypt:/etc/letsencrypt
+      - ../certbot/etc/letsencrypt:/etc/letsencrypt
 
 networks:
   network_overlay:

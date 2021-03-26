@@ -1,0 +1,2 @@
+cd etc && tar -czf - * | openssl enc -e -aes256 -out etc.tar.gz
+mv etc.tar.gz ../etc.tar.gz
