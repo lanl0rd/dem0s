@@ -236,7 +236,7 @@ bootstrap();
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /app/apps/bakery-api/src/main.ts */"./apps/bakery-api/src/main.ts");
+module.exports = __webpack_require__(/*! /Users/simba/lanl0rd/space/lanl0rd/dem0s/ocelot/apps/bakery-api/src/main.ts */"./apps/bakery-api/src/main.ts");
 
 
 /***/ }),

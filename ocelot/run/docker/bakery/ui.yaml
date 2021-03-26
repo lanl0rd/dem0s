@@ -16,7 +16,7 @@ services:
         constraints: [node.role == manager]
     working_dir: /app
     ports:
-      - "4200:4200"
+      - "4200"
     command: nx serve bakery --host 0.0.0.0 --disableHostCheck
 
 networks:
