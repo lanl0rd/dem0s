@@ -11,7 +11,7 @@ services:
     networks:
       - network_overlay
     ports:
-      - "80"
+      - "8008:80"
       - "5090"
     volumes:
       - $HOME:/root/home
