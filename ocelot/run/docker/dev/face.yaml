@@ -1,10 +1,10 @@
-# docker service rm ocelot_dev || true && docker stack deploy -c $(pwd)/dev.yaml --resolve-image=never ocelot
+# docker service rm ocelot_dev_face || true && docker stack deploy -c $(pwd)/face.yaml --resolve-image=never ocelot_dev
 
 version: '3.7'
 
 services:
 
-  dev:
+  face:
     image: lanl0rd/face
     environment:
       - HTTP_PASSWORD=ocelot
@@ -14,7 +14,7 @@ services:
       - "8008:80"
       - "5090"
     volumes:
-      - $HOME:/root/home
+      - ../../../:/root/ocelot
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
 networks:

@@ -1,1 +1,1 @@
-tar -czf - * | openssl enc -e -aes256 -out letsencrypt.tar.gz
+mv letsencrypt.tar.gz letsencrypt-old.tar.gz || true tar -czf - * | openssl enc -e -aes256 -out letsencrypt.tar.gz
