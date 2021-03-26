@@ -15,6 +15,7 @@ services:
       - "5090"
     volumes:
       - $HOME:/root/home
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 
 networks:
   network_overlay:
