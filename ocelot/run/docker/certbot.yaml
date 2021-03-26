@@ -1,4 +1,4 @@
-# docker service rm ocelot_certbot || true && docker service rm ocelot_certbot || true && docker stack deploy -c $(pwd)/certbot.yaml --resolve-image=never ocelot
+# docker service rm ocelot_certbot || true && docker stack deploy -c $(pwd)/certbot.yaml --resolve-image=never ocelot
 
 version: '3.7'
 
