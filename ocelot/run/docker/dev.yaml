@@ -15,7 +15,7 @@ services:
       - "80"
       - "5090"
     volumes:
-      - ../../certbot:/root/ocelot
+      - $HOME:/root/home
 
 networks:
   network_overlay:
