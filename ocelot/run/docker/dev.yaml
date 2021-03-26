@@ -1,4 +1,4 @@
-# docker service rm ocelot_dev || true && docker service rm ocelot_dev || true && docker stack deploy -c $(pwd)/dev.yaml --resolve-image=never ocelot
+# docker service rm ocelot_dev || true && docker stack deploy -c $(pwd)/dev.yaml --resolve-image=never ocelot
 
 version: '3.7'
 
@@ -19,4 +19,6 @@ services:
 
 networks:
   network_overlay:
+    external: true
+  host:
     external: true
