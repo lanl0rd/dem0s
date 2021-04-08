@@ -27,7 +27,7 @@ services:
       - "3000"
     command: nx serve bakery-api
 
-    api:
+  api:
     image: lanl0rd/js
     networks:
       - network_overlay
